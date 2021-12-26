@@ -3,7 +3,8 @@
 #include <iostream>
 #include <Windows.h>
 #include <vector>
+#include "data.h"
+#include "scene.h"
 
 
 
-wchar_t *screen = new wchar_t[screenW*screenH];
