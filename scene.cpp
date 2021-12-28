@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <Windows.h>
+#include <algorithm>
 #include <vector>
 #include "scene.h"
 
@@ -11,15 +12,16 @@
 scene::scene() {
     sBuffer = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
     dwBytesWritten = 0;
-    wchar_t *screen = new wchar_t[screenW*screenH];
+    SetConsoleActiveScreenBuffer(sBuffer);
+    wchar_t* screen = new wchar_t[screenW*screenH];
 } //constructor 
 
-void scene::clear(wchar_t & screen) {
-    std::fill_n(screen, (screenW * screenH), ' ');
+void scene::clear() {
+    std::fill_n(screen , (screenW * screenH), L'x');
 } //clear the screen
 
 void scene::update() {
-    WriteConsoleOutputCharacterW(sBuffer, screen, screenW * screenH, { 0,0 }, &dwBytesWritten);
+    WriteConsoleOutputCharacter(sBuffer, screen, screenW * screenH, { 0,0 }, &dwBytesWritten);
 } //updates the screen
 
  // variables and information that will be helpful, you know
