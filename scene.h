@@ -11,7 +11,8 @@ public:
     const int screenW = 120; //120
     const int screenH = 80; //80
     wchar_t* screen; // = new wchar_t[screenW*screenH];
-
+    HANDLE sBuffer;
+    DWORD dwBytesWritten = 0; 
     // functions I would like to use
     scene(); //constructor 
     void clear(); //clear the screen
@@ -20,9 +21,8 @@ public:
 
 private:
     // variables and information that will be helpful, you know
-    HANDLE sBuffer; // = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-    DWORD dwBytesWritten; // = 0;
-
+    
+    // = 0;
 };
 
 #endif

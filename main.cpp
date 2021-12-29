@@ -12,13 +12,13 @@ int main() {
     std::cout <<  "construct" << std::endl;
     test->clear();  
     std::cout <<  "set" << std::endl;
-    //test->update();
+    test->update();
     std::cout <<  "render" << std::endl;
 
     while(1) {
         // noth
     }
-    std::cout <<  "bye" << std::endl;
+
 
     return 0;
 }

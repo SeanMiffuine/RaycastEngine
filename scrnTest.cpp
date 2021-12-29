@@ -15,7 +15,5 @@ int main() {
 	DWORD dwBytesWritten = 0;
     std::fill_n(screen , (screenW * screenH), L'X');
     WriteConsoleOutputCharacterW(hDialogue, screen, screenW * screenH, { 0,0 }, &dwBytesWritten);
-    while(1) {
-        //nothing
-    }
+    
 }
