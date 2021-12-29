@@ -7,22 +7,19 @@
 
 class scene {
 public:
+
  // variables and information that will be helpful, you know
     const int screenW = 120; //120
-    const int screenH = 80; //80
+    const int screenH = 40; //80
     wchar_t* screen; // = new wchar_t[screenW*screenH];
     HANDLE sBuffer;
     DWORD dwBytesWritten = 0; 
+
     // functions I would like to use
     scene(); //constructor 
     void clear(); //clear the screen
-    void update(); //updates the screen
+    void render(); //render the screen
     
-
-private:
-    // variables and information that will be helpful, you know
-    
-    // = 0;
 };
 
 #endif
