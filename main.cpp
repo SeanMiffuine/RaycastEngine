@@ -40,15 +40,16 @@ int main() {
         }
 		// Handle Forwards movement & collision
 		if (GetAsyncKeyState((unsigned short)'W') & 0x8000) {
-            moveX = sin(game->playerAngle) * game->moveSpeed * timeElapsed;
-            moveY= cos(game->playerAngle) * game->moveSpeed * timeElapsed;
+            // !!! depending on playerAngle must +-;
+            moveX = cos(game->playerAngle) * game->moveSpeed * timeElapsed;
+            moveY= sin(game->playerAngle) * game->moveSpeed * timeElapsed;
             futurePositionX = (int)(game->playerX + moveX);
             futurePositionY = (int)(game->playerY + moveY);
 
             if (game->map[futurePositionX][futurePositionY] == 0) {
                 game->playerX += moveX; 
 			    game->playerY += moveY;
-                std::cout << "x: " << game->playerX << " y: " << game->playerY << std::endl;
+                //std::cout << "x: " << game->playerX << " y: " << game->playerY << std::endl;
                 }
         }		
 

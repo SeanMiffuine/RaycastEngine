@@ -12,8 +12,8 @@ scene::scene() {
     sBuffer = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL); 
     screen = new wchar_t[screenW*screenH];
 
-    playerX = 5.0;
-    playerY = 5.0;
+    playerX = 1.0;
+    playerY = 1.0;
     playerAngle = PI / 2; //facing up
 } //constructor 
 
@@ -112,10 +112,10 @@ void scene::update() {
         }
 
         // using direction radians and total x & y displacement, find vector length
-        vectorX = totalX / (cos(direction));
-        vectorY = totalY / (sin(direction));
-        vectorXperUnit = 1 / (cos(direction));
-        vectorYperUnit = 1 / (sin(direction));
+        vectorX = abs(totalX / (cos(direction)));
+        vectorY = abs(totalY / (sin(direction)));
+        vectorXperUnit = abs(1 / (cos(direction)));
+        vectorYperUnit = abs(1 / (sin(direction)));
 
         // DDA algorithm : check inc x or y, depending on lowest increment
         int side; // side of wall; left right = 1, up down = 0;
@@ -163,14 +163,14 @@ void scene::update() {
         int floor = ceiling + wallHeight + 1;
         short blank = L' ';
         short tile;
-        short floorClose = L'#';
-        short floorMed = L'x';
+        short floorClose = L'=';
+        short floorMed = L'-';
         short floorFar = L'.';
         
         if (side == 1) { // left right walls
             if (rayPosY - (int)rayPosY <= 0.05 || rayPosY - (int)rayPosY >= 0.95) {
                 tile = L' ';
-            } else if (totalLength <= vision / 5) { // close
+            } else if (totalLength <= vision / 3) { // close
                 tile = 0x2588;
             } else if (totalLength <= vision / 2) {
                 tile = 0x2593;
@@ -182,12 +182,12 @@ void scene::update() {
         } else { // front back walls
             if (rayPosX - (int)rayPosX <= 0.05 || rayPosX - (int)rayPosX >= 0.95) {
                 tile = L' ';
-            } else if (totalLength <= vision / 7) { // close
+            } else if (totalLength <= vision / 3) { // close
                 tile = 0x2588;
-            } else if (totalLength <= vision / 4) {
-                tile = 0x2593;
+            } else if (totalLength <= vision / 2) {
+                tile = L'0';
             } else if (totalLength <= vision) {
-                tile = 0x2591;
+                tile = L'1';
             } else { // unseeably far
                 tile = L' ';
             }
@@ -198,9 +198,9 @@ void scene::update() {
             } else if (y > ceiling && y <= floor) {
                 screen[x + (screenW * y)] = tile;
             } else {
-                if (y < (screenH - 10)) {
+                if (y < (screenH - 5)) {
                     screen[x + (screenW * y)] = floorFar;
-                } else if (y < (screenH - 5)) {
+                } else if (y < (screenH - 2)) {
                     screen[x + (screenW * y)] = floorMed;
                 } else {
                     screen[x + (screenW * y)] = floorClose;
