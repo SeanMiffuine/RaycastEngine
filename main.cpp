@@ -46,11 +46,17 @@ int main() {
             futurePositionX = (int)(game->playerX + moveX);
             futurePositionY = (int)(game->playerY + moveY);
 
+            // corner case
             if (game->map[futurePositionX][futurePositionY] == 0) {
                 game->playerX += moveX; 
 			    game->playerY += moveY;
                 //std::cout << "x: " << game->playerX << " y: " << game->playerY << std::endl;
-                }
+            } else if (game->map[futurePositionX][(int)game->playerY] != 1) {
+                    game->playerX += moveX; 
+            } else if (game->map[(int)game->playerX][futurePositionY] != 1) {
+                    game->playerY += moveY;
+            } 
+
         }		
 
         //update and render game data

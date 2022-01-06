@@ -85,10 +85,10 @@ void scene::update() {
             }
         } else { // on border of cell
             if (direction >= 0 && direction < PI) { // up
-                totalY = 1.0;
+                totalY = 0;
                 incY = 1;
             } else { // down
-                totalY = -1.0;
+                totalY = 0;
                 incY = -1;
             }
         }
@@ -103,26 +103,36 @@ void scene::update() {
             }
         } else {
             if (direction >= (PI / 2) && direction < (PI + (PI / 2))) { // left
-                totalX = -1.0;
+                totalX = 0;
                 incX = -1;
             } else { // right
-                totalX = 1.0;
+                totalX = 0;
                 incX = 1;
             }
         }
 
         // using direction radians and total x & y displacement, find vector length
-        vectorX = abs(totalX / (cos(direction)));
-        vectorY = abs(totalY / (sin(direction)));
-        vectorXperUnit = abs(1 / (cos(direction)));
-        vectorYperUnit = abs(1 / (sin(direction)));
-
+        if (cos(direction) == 0) {
+            vectorX = abs(totalX);
+            vectorXperUnit = 1;
+        } else {
+            vectorX = abs(totalX / (cos(direction)));
+            vectorXperUnit = abs(1 / (cos(direction)));
+        }
+        if (sin(direction) == 0) {
+            vectorY = abs(totalY);
+            vectorYperUnit = 1;
+        } else {
+            vectorY = abs(totalY / (sin(direction)));
+            vectorYperUnit = abs(1 / (sin(direction)));
+        }
+        
         // DDA algorithm : check inc x or y, depending on lowest increment
         int side; // side of wall; left right = 1, up down = 0;
         bool hit  = false; // hit wall or not
         while (!hit) {
             // Walk along shortest path
-			if (vectorX < vectorY){
+			if (vectorX < vectorY) {
 				curPosX += incX;
 				vectorX += vectorXperUnit;
                 side = 1;
@@ -141,11 +151,11 @@ void scene::update() {
         double rayPosX;
         double rayPosY;
         if (side == 1) {
-            totalLength = vectorX;
+            totalLength = vectorX -= vectorXperUnit; // CHANGED ???
             rayPosX = vectorX * (cos(direction));
             rayPosY = vectorX * (sin(direction));
         } else {
-            totalLength = vectorY;
+            totalLength = vectorY -= vectorYperUnit;
             rayPosX = vectorY * (cos(direction));
             rayPosY = vectorY * (sin(direction));
         }
@@ -183,9 +193,9 @@ void scene::update() {
             if (rayPosX - (int)rayPosX <= 0.05 || rayPosX - (int)rayPosX >= 0.95) {
                 tile = L' ';
             } else if (totalLength <= vision / 3) { // close
-                tile = 0x2588;
+                tile = L'#';
             } else if (totalLength <= vision / 2) {
-                tile = L'0';
+                tile = L'O';
             } else if (totalLength <= vision) {
                 tile = L'1';
             } else { // unseeably far
