@@ -12,6 +12,7 @@ int main() {
     //initialize game
     scene* game = new scene();
     game->clear();
+    game->maze(MAP_SIZE);
     auto timeStart = std::chrono::system_clock::now();
     auto timeFin = std::chrono::system_clock::now();
 
@@ -62,7 +63,6 @@ int main() {
         //update and render game data
         game->update();
         game->render();
-
     }
     return 0;
 }

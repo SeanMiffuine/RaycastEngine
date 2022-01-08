@@ -2,11 +2,15 @@
 #define SCENE_H_
 #define UNICODE
 #define PI 3.14159265
+#define MAP_SIZE 20
 
 #include <iostream>
 #include <utility>
 #include <Windows.h>
-#include <vector>
+#include <algorithm>
+#include <cstdlib>
+
+#include <cmath>
 
 class scene {
 public:
@@ -30,24 +34,25 @@ public:
     DWORD dwBytesWritten = 0; 
 
     //note: map is inverse
-    int map[10][10] = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
+    int map[MAP_SIZE][MAP_SIZE];
 
     // functions I would like to use
-    scene(); //constructor 
-    void clear(); //clear the screen
-    void render(); //render the screen
-    void update(); //updates the screen array & raycast
+    scene();        // constructor 
+    void clear();   // clear the screen
+    void render();  // render the screen
+    void update();  // updates the screen array & raycast
+    void maze(int size);    // generates maze
+
+    
+};
+
+class block { // block for maze generation; is 'next tile' w/ connector
+public:
+    std::pair<int, int> connector;
+    std::pair<int, int> newBlock;
+
+    block();
+    block(int x, int y, int conX, int conY);
 };
 
 #endif

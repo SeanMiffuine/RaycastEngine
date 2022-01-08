@@ -1,10 +1,5 @@
 #define UNICODE
 
-#include <iostream>
-#include <Windows.h>
-#include <algorithm>
-#include <vector>
-#include <cmath>
 #include "scene.h"
 
 
@@ -210,7 +205,7 @@ void scene::update() {
             } else {
                 if (y < (screenH - 5)) {
                     screen[x + (screenW * y)] = floorFar;
-                } else if (y < (screenH - 2)) {
+                } else if (y < (screenH - 3)) {
                     screen[x + (screenW * y)] = floorMed;
                 } else {
                     screen[x + (screenW * y)] = floorClose;
@@ -221,8 +216,87 @@ void scene::update() {
     }
 }
 
+void scene::maze(int size) { // prims algorithm maze generation of 2d array
+    std::vector<block> toTravel; 
+    std::fill_n(&map[0][0], size * size, 1);    // 1 is wall, 0 is space
 
+    int x = (int)playerX;
+    int y = (int)playerY;
+    
+    block first = block(x,y,x,y);       // initial start;
+    toTravel.push_back(first);
 
+    int random;
+
+    //std::cout << "first" << std::endl;
+    block curBlock;
+    // main loop
+    while (!toTravel.empty()) {
+        //std::cout << "size: " << toTravel.size() << std::endl;
+        std::srand(time(0));
+        random = std::rand() % (toTravel.size());
+        std::cout << "random: " << random << std::endl;
+        curBlock = toTravel.at(random);
+
+        toTravel.erase(toTravel.begin() + random);
+
+        if (map[curBlock.newBlock.first][curBlock.newBlock.second] == 1) { 
+
+             // check clockwise from top
+            map[curBlock.newBlock.first][curBlock.newBlock.second] = 0;
+            map[curBlock.connector.first][curBlock.connector.second] = 0;
+
+            if ((curBlock.newBlock.second + 2) < (size - 1)) {      // up cell
+                if (map[curBlock.newBlock.first][curBlock.newBlock.second+2] == 1) {
+                    toTravel.push_back(block(curBlock.newBlock.first, curBlock.newBlock.second+2,
+                     curBlock.newBlock.first, curBlock.newBlock.second+1));
+                }    
+            }
+            if (curBlock.newBlock.first + 2 < (size - 1)) {         // right cell
+                if ( map[curBlock.newBlock.first+2][curBlock.newBlock.second] == 1) {
+                    toTravel.push_back(block(curBlock.newBlock.first + 2, curBlock.newBlock.second,
+                     curBlock.newBlock.first + 1, curBlock.newBlock.second));
+                }
+            }
+            if ((curBlock.newBlock.second - 2) >= 0) {              // down cell
+                if (map[curBlock.newBlock.first][curBlock.newBlock.second-2] == 1) {
+                    toTravel.push_back(block(curBlock.newBlock.first, curBlock.newBlock.second - 2,
+                     curBlock.newBlock.first, curBlock.newBlock.second - 1));
+                }
+            }
+            if ((curBlock.newBlock.first) - 2 >= 0) {               // left cell
+                if (map[curBlock.newBlock.first-2][curBlock.newBlock.second] == 1) {
+                    toTravel.push_back(block(curBlock.newBlock.first - 2, curBlock.newBlock.second,
+                    curBlock.newBlock.first - 1, curBlock.newBlock.second));
+                }             
+            }
+        
+        //std::cout << toTravel.size() << std::endl;
+        }   
+    } 
+    
+    for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                if (map[i][j] == 1) {
+                    std::cout << '#' << " ";
+                } else {
+                    std::cout << '_' << " ";
+                }
+                
+            }
+        std::cout << std::endl;
+    }
+}
+ 
+block::block(int x, int y, int conX, int conY) {
+    newBlock = std::make_pair(x, y);
+    connector = std::make_pair(conX, conY);
+}
+
+block::block() {
+    newBlock = std::make_pair(0, 0);
+    connector = std::make_pair(0, 0);
+}
 
 
 
