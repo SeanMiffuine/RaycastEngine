@@ -171,6 +171,7 @@ void scene::update() {
         short floorClose = L'=';
         short floorMed = L'-';
         short floorFar = L'.';
+
         
         if (side == 1) { // left right walls
             if (rayPosY - (int)rayPosY <= 0.05 || rayPosY - (int)rayPosY >= 0.95) {
@@ -197,6 +198,12 @@ void scene::update() {
                 tile = L' ';
             }
         }
+
+        // the finish line
+        if (map[(int)rayPosX][(int)rayPosY] == 2) {
+            tile = L' ';
+        }
+
         for (int y = 0; y < screenH; y++) {
             if (y <= ceiling) {
                 screen[x + (screenW * y)] = blank;
@@ -270,19 +277,24 @@ void scene::maze(int size) { // prims algorithm maze generation of 2d array
                     curBlock.newBlock.first - 1, curBlock.newBlock.second));
                 }             
             }
-        
         //std::cout << toTravel.size() << std::endl;
-        }   
+        } 
+         
     } 
-    
+
+    //set end
+    map[curBlock.newBlock.first][curBlock.newBlock.second] = 2;
+
+    // print out maze in cmd
     for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
                 if (map[i][j] == 1) {
                     std::cout << '#' << " ";
+                } else if (map[i][j] == 2){
+                     std::cout << 'X' << " ";
                 } else {
                     std::cout << '_' << " ";
                 }
-                
             }
         std::cout << std::endl;
     }
