@@ -21,6 +21,16 @@ int main() {
     double moveY;
     int futurePositionX;
     int futurePositionY;
+
+    game->startScreen();
+    game->render();
+    //start screen
+    while(1) {
+        
+        if (GetAsyncKeyState((unsigned short)'W') & 0x0001) { // prevent hold down craziness
+            break;
+        }
+    }
     //game loop
     while(1) {
 
@@ -43,7 +53,7 @@ int main() {
 		// Handle Forwards movement & collision
 		if (GetAsyncKeyState((unsigned short)'W') & 0x8000) {
 
-            PlaySound(L"footsteps.wav", NULL, SND_FILENAME | SND_ASYNC);
+            //PlaySound(L"footsteps.wav", NULL, SND_FILENAME | SND_ASYNC);
 
             // !!! depending on playerAngle must +-;
             
@@ -65,7 +75,7 @@ int main() {
 
         }
         if(game->map[futurePositionX][futurePositionY] == 2) {
-            exit(0);
+            break;
         }		
 
         //update and render game data

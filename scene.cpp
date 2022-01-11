@@ -13,7 +13,7 @@ scene::scene() {
 } //constructor 
 
 void scene::clear() {
-    std::fill_n(screen, (screenW * screenH), L'x');
+    std::fill_n(screen, (screenW * screenH), L' ');
 } //clear the screen
 
 void scene::render() {
@@ -221,6 +221,14 @@ void scene::update() {
         }
         
     }
+}
+
+void scene::startScreen() {
+    std::wstring start = L"Find the exit. Press W to start.";
+    int index = screenW + 1;
+    for(int i = 0; i <= start.length(); i++) {
+        screen[index + i] = start[i];
+    } 
 }
 
 void scene::maze(int size) { // prims algorithm maze generation of 2d array

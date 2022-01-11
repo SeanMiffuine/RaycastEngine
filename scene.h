@@ -2,7 +2,7 @@
 #define SCENE_H_
 #define UNICODE
 #define PI 3.14159265
-#define MAP_SIZE 10
+#define MAP_SIZE 30
 
 #include <iostream>
 #include <utility>
@@ -41,6 +41,7 @@ public:
     void clear();   // clear the screen
     void render();  // render the screen
     void update();  // updates the screen array & raycast
+    void startScreen(); // updates title screen of game
     void maze(int size);    // generates maze
 
     
