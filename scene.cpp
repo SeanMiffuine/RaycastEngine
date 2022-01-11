@@ -12,19 +12,21 @@ scene::scene() {
     playerAngle = PI / 2; //facing up
 } //constructor 
 
-void scene::clear() {
+void scene::clear() { //clear the screen
     std::fill_n(screen, (screenW * screenH), L' ');
-} //clear the screen
+} 
 
-void scene::render() {
+void scene::render() { //updates the screen
     SetConsoleActiveScreenBuffer(sBuffer);
     WriteConsoleOutputCharacterW(sBuffer, screen, screenW * screenH, { 0,0 }, &dwBytesWritten);
-} //updates the screen
+} 
 
 void scene::update() {
     // for loop through screen character width,
     // representing ecah colomn of render.
     // technically one frame. 
+
+    //Raycast DDA Algorithm
 
     for (int x = 0; x < screenW; x++) {
 
@@ -204,6 +206,7 @@ void scene::update() {
             tile = L' ';
         }
 
+        // render each column
         for (int y = 0; y < screenH; y++) {
             if (y <= ceiling) {
                 screen[x + (screenW * y)] = blank;
@@ -223,7 +226,7 @@ void scene::update() {
     }
 }
 
-void scene::startScreen() {
+void scene::startScreen() { // starting screen
     std::wstring start = L"Find the exit. Press W to start.";
     int index = screenW + 1;
     for(int i = 0; i <= start.length(); i++) {
@@ -290,7 +293,7 @@ void scene::maze(int size) { // prims algorithm maze generation of 2d array
          
     } 
 
-    //set end
+    //set exit of maze, which is the last processed block of Prim's
     map[curBlock.newBlock.first][curBlock.newBlock.second] = 2;
 
     // print out maze in cmd

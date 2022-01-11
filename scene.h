@@ -24,7 +24,7 @@ public:
     double playerX;
     double playerY;
     double playerAngle; //direction angle; unit angles
-    double vision = mapSize / 2;
+    double vision = 5;
     
     
     wchar_t* screen; // = new wchar_t[screenW*screenH];
