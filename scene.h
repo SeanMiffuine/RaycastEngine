@@ -2,14 +2,13 @@
 #define SCENE_H_
 #define UNICODE
 #define PI 3.14159265
-#define MAP_SIZE 30
+#define MAP_SIZE 30 // width/height of map generated
 
 #include <iostream>
 #include <utility>
 #include <Windows.h>
 #include <algorithm>
 #include <cstdlib>
-
 #include <cmath>
 
 class scene {
@@ -18,7 +17,6 @@ public:
  // variables and information that will be helpful, you know
     const int screenW = 120; // 120
     const int screenH = 30; // 30
-    const int mapSize = 10;
     const double FOV = (PI / 2); //90 degrees, pi/2
     const double rotateAngle = PI;
     const double moveSpeed = 2; // per second
@@ -49,11 +47,11 @@ public:
 
 class block { // block for maze generation; is 'next tile' w/ connector
 public:
-    std::pair<int, int> connector;
-    std::pair<int, int> newBlock;
+    std::pair<int, int> connector;  // connecting tile (wall)
+    std::pair<int, int> newBlock;   // main tile 
 
-    block();
-    block(int x, int y, int conX, int conY);
+    block();                                    // default constructor
+    block(int x, int y, int conX, int conY);    // constructor
 };
 
 #endif

@@ -24,6 +24,7 @@ int main() {
 
     game->startScreen();
     game->render();
+
     //start screen
     while(1) {
         
@@ -31,10 +32,11 @@ int main() {
             break;
         }
     }
+    
     //game loop
     while(1) {
 
-        //controls
+        //time keeping for constant frametime
         timeFin = std::chrono::system_clock::now();
         std::chrono::duration<double> elapsed = timeFin - timeStart;
         timeStart = timeFin;
