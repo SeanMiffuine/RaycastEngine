@@ -21,10 +21,22 @@ int main() {
     double moveY;
     int futurePositionX;
     int futurePositionY;
+
+    game->startScreen();
+    game->render();
+
+    //start screen
+    while(1) {
+        
+        if (GetAsyncKeyState((unsigned short)'W') & 0x0001) { // prevent hold down craziness
+            break;
+        }
+    }
+    
     //game loop
     while(1) {
 
-        //controls
+        //time keeping for constant frametime
         timeFin = std::chrono::system_clock::now();
         std::chrono::duration<double> elapsed = timeFin - timeStart;
         timeStart = timeFin;
@@ -65,7 +77,7 @@ int main() {
 
         }
         if(game->map[futurePositionX][futurePositionY] == 2) {
-            exit(0);
+            break;
         }		
 
         //update and render game data
