@@ -2,11 +2,7 @@
 #define SCENE_H_
 #define UNICODE
 #define PI 3.14159265
-<<<<<<< HEAD
-#define MAP_SIZE 15
-=======
 #define MAP_SIZE 30 // width/height of map generated
->>>>>>> 2f46ef6aac7e1a870a24ee4d68cbe5eab849a9b5
 
 #include <iostream>
 #include <utility>
