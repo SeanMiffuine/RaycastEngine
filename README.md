@@ -1,4 +1,6 @@
 # horrorMazeGame
-Horror game using raycast and random maze generation. Fun and scary.
 
-
+Maze game written using c++.
+Maze generation using a simple version of Prim's algorithm
+Raycast using modified version of DDA algorithm
+Graphics using UNICODE and Windows API
