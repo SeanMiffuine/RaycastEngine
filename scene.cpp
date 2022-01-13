@@ -1,6 +1,7 @@
 #define UNICODE
 
 #include "scene.h"
+#include <vector>
 
 
 scene::scene() {
