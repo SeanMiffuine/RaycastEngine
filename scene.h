@@ -2,7 +2,7 @@
 #define SCENE_H_
 #define UNICODE
 #define PI 3.14159265
-#define MAP_SIZE 10
+#define MAP_SIZE 15
 
 #include <iostream>
 #include <utility>

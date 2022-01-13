@@ -43,7 +43,7 @@ int main() {
 		// Handle Forwards movement & collision
 		if (GetAsyncKeyState((unsigned short)'W') & 0x8000) {
 
-            PlaySound(L"footsteps.wav", NULL, SND_FILENAME | SND_ASYNC);
+            //PlaySound(L"footsteps.wav", NULL, SND_FILENAME | SND_ASYNC);
 
             // !!! depending on playerAngle must +-;
             
