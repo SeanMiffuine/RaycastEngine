@@ -1,8 +1,8 @@
-# horrorMazeGame
+# Raycast Computer Graphics Engine
 
-Maze game written using c++.
-Maze generation using a simple version of Prim's algorithm
-Raycast using modified version of DDA algorithm
-Graphics using UNICODE and Windows API
+CLI game developed with C++, GNU debugger, and Windows API, compiled with GNU G++
+Consists of random maze generation and raycasting using digital differential analysis (DDA algorithm)
+Shows users 3 dimensional computer graphics within the command prompt console 
+
 
 Demo: https://youtu.be/oxPiGImtQSQ
