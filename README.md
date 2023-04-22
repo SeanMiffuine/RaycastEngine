@@ -6,3 +6,6 @@
 
 
 Demo: https://youtu.be/oxPiGImtQSQ
+
+
+CONTROLS: WASD to play
