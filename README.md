@@ -36,7 +36,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and a 
 $ git clone https://github.com/SeanMiffuine/RaycastEngine
 
 # Go into the repository
-$ cd electron-markdownify
+$ cd 
 
 # Run main.cpp with preferred C++ compiler
 ```
